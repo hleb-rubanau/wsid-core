@@ -11,6 +11,8 @@ from .helpers import *
 
 class WSID:
     def __init__(self, keybody, identity, ttl=10, logger=None):
+        
+        self.logger   = logger or logging.getLogger('wsid')
 
         hexencoder=nacl.encoding.HexEncoder
 
@@ -26,7 +28,6 @@ class WSID:
 
         self.identity = identity
         self.ttl      = ttl
-        self.logger   = logger or logging.getLogger('wsid')
         #sigbytes=self.signing_key.verify_key.encode(hexencoder) 
         #app.logger.info("HASH blake2b: %s" % nacl.hash.blake2b( sigbytes, digest_size=4 ) )
    
