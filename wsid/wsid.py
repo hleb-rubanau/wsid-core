@@ -84,5 +84,8 @@ def validate(msg, logger=None):
     signature = hexenc.decode( signaturehex )
 
     logger.debug("CHECKING PAYLOAD %s against signature %s" % (signed_payload, signature))
-    if verifier.verify(signed_payload, signature):
-        return (identity, payload, claims)
+    try:
+        if verifier.verify(signed_payload, signature):
+            return (identity, payload, claims)
+    except nacl.exceptions.BadSignatureError:
+        raise InvalidSignature
