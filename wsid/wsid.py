@@ -29,9 +29,8 @@ class WSID:
         #app.logger.info("HASH blake2b: %s" % nacl.hash.blake2b( sigbytes, digest_size=4 ) )
    
     def sign(self, message):
+        """message: a bytes-like object"""
         
-        message = message.decode() if isinstance(message,bytes) else message
-
         b64=nacl.encoding.Base64Encoder
         hexenc=nacl.encoding.HexEncoder
 
@@ -41,13 +40,13 @@ class WSID:
             'iat': now,
             'exp': now + self.ttl
         }
-        claims_b64 = b64.encode(json.dumps(claims).encode()).decode()
+        claims_b64 = b64.encode(json.dumps(claims).encode())
          
-        payload=message + "." + claims_b64
+        payload=message + b"." + claims_b64
 
         self.logger.debug("PAYLOAD: %s" % payload)
             
-        signed = self.signing_key.sign(payload.encode())
+        signed = self.signing_key.sign(payload)
         sigstring = hexenc.encode( signed.signature ).decode()
         
         return payload+"."+sigstring
@@ -55,7 +54,8 @@ class WSID:
 
 
 def validate(msg):
-    payload, claimsdata, signature = msg.split('.')
+  
+    payload, claimsdata, signature = msg.split(b'.')
     
     b64=nacl.encoding.Base64Encoder
     claims = json.loads(b64.decode(claimsdata))
@@ -67,9 +67,9 @@ def validate(msg):
     validate_identity_url(identity)
     signer_key_body = fetch_identity( identity )
     
-    verifier = nacl.signing.VerifyKey(signer_key_body)
+    verifier = nacl.signing.VerifyKey(signer_key_body, nacl.encoding.HexEncoder)
     
-    signed_payload=payload+"."+claims
+    signed_payload=payload+b"."+claims
 
-    if verifier.verify(signed_payload.encode(), signature.encode()):
+    if verifier.verify(signed_payload, signature):
         return (identity, payload, claims)
