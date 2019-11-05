@@ -22,6 +22,8 @@ class WSID:
             "enc":   self.encryption_key.public_key.encode(hexencoder).decode()
         }
 
+        self.logger.debug("SIGKEY as string: %s" % self.manifest['sig'])
+
         self.identity = identity
         self.ttl      = ttl
         self.logger   = logger or logging.getLogger('wsid')
@@ -69,9 +71,12 @@ def validate(msg, logger=None):
     
     validate_identity_url(identity)
     signer_key_body = fetch_identity( identity )['sig']
+    logger.debug("VERIFICATION KEY=%s" % [ signer_key_body ] )
     
     verifier = nacl.signing.VerifyKey(signer_key_body, nacl.encoding.HexEncoder)
-   
+  
+    logger.debug("VERIFIER reencoded: %s" % verifier.encode( nacl.encoding.HexEncoder ).decode() ) 
+ 
     # it's important to take claimsdata, not reserialized claims, as result may formally differ 
     signed_payload  =   payload+b"."+claimsdata
     
