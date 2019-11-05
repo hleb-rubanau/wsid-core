@@ -7,6 +7,8 @@ import nacl.public
 import nacl.encoding 
 import nacl.hash
 
+from .helpers import *
+
 class WSID:
     def __init__(self, keybody, identity, ttl=10, logger=None):
 
@@ -49,3 +51,25 @@ class WSID:
         sigstring = hexenc.encode( signed.signature ).decode()
         
         return payload+"."+sigstring
+
+
+
+def validate(msg):
+    payload, claimsdata, signature = msg.split('.')
+    
+    b64=nacl.encoding.Base64Encoder
+    claims = json.loads(b64.decode(claimsdata))
+
+    validate_timestamps(claims['iat'],claims['exp'])
+
+    identity = claims['iss']
+    
+    validate_identity_url(identity)
+    signer_key_body = fetch_identity( identity )
+    
+    verifier = nacl.signing.VerifyKey(signer_key_body)
+    
+    signed_payload=payload+"."+claims
+
+    if verifier.verify(signed_payload.encode(), signature.encode()):
+        return identity 

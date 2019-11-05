@@ -1,1 +1,1 @@
-from .wsid import WSID
+from .wsid import *

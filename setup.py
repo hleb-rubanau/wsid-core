@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
      name='wsid',  
-     version='0.0.1',
+     version='0.0.2',
      scripts=[] ,
      author="Hleb Rubanau",
      author_email="contact@rubanau.com",
@@ -15,7 +15,8 @@ setuptools.setup(
      url="https://github.com/hleb-rubanau/wsid-core",
      packages=['wsid'],
      install_requires=[
-        'PyNaCl'
+        'PyNaCl', 
+        'cachetools',
      ],
      license="MIT",
      classifiers=[
