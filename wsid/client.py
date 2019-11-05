@@ -1,13 +1,15 @@
 from .helpers import assert_bytes, default_request_to_payload_extractor
-import requests
+import urllib.request
 
 class WSIDClient():
+    """ implements API for identity server's clients"""
     def __init__(self, url):
         self.url=url
+        self.signurl=url+"/sign"
 
     def sign(self, msg, **kwargs):
         assert_bytes(msg)
-        return requests.post(self.url+'/sign', data=data, kwargs)
+        return urllib.request.urlopen( self.signurl , data=msg ).read()
                   
     def sign_request(self, request, payload_extractor=None, **kwargs):
         if not payload_extractor:
