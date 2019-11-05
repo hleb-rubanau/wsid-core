@@ -65,7 +65,7 @@ def validate(msg):
     identity = claims['iss']
     
     validate_identity_url(identity)
-    signer_key_body = fetch_identity( identity )
+    signer_key_body = fetch_identity( identity )['sig']
     
     verifier = nacl.signing.VerifyKey(signer_key_body, nacl.encoding.HexEncoder)
     
