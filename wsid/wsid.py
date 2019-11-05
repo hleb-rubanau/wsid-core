@@ -47,11 +47,11 @@ class WSID:
          
         payload=message + b"." + claims_b64
 
-        self.logger.debug("PAYLOAD: %s" % payload)
-            
+        self.logger.debug("PAYLOAD TO SIGN: %s" % payload)
         signed = self.signing_key.sign(payload)
-        self.logger.debug("SIGNATURE: %s" % signed.signature)
+        self.logger.debug("GENERATED SIGNATURE: %s" % signed.signature)
         sigstring = hexenc.encode( signed.signature )
+        self.logger.debug("GENERATED SIGNATURE HEX: %s" % sigstring)
         
         return payload+b"."+sigstring
 
@@ -61,9 +61,10 @@ def validate(msg, logger=None):
   
     logger=logger or logging.getLogger('wsid.validate')
         
-    payload, claimsdata, signature = msg.split(b'.')
+    payload, claimsdata, signaturehex = msg.split(b'.')
     
     b64     =   nacl.encoding.Base64Encoder
+    hexenc  =   nacl.encoding.Base64Encoder
     claims  =   json.loads(b64.decode(claimsdata))
 
     validate_timestamps(claims['iat'],claims['exp'])
@@ -81,6 +82,8 @@ def validate(msg, logger=None):
     # it's important to take claimsdata, not reserialized claims, as result may formally differ 
     signed_payload  =   payload+b"."+claimsdata
     
+    signature = hexenc.decode( signaturehex )
+
     logger.debug("CHECKING PAYLOAD %s against signature %s" % (signed_payload, signature))
     if verifier.verify(signed_payload, signature):
         return (identity, payload, claims)
