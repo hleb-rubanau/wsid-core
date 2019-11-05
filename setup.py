@@ -13,7 +13,7 @@ setuptools.setup(
      long_description=long_description,
      long_description_content_type="text/markdown",
      url="https://github.com/hleb-rubanau/wsid-core",
-     packages=setuptools.find_packages(),
+     packages=['wsid'],
      install_requires=[
         'PyNaCl'
      ],
