@@ -72,4 +72,4 @@ def validate(msg):
     signed_payload=payload+"."+claims
 
     if verifier.verify(signed_payload.encode(), signature.encode()):
-        return identity 
+        return (identity, payload, claims)
