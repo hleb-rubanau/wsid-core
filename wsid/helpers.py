@@ -3,6 +3,7 @@ import urllib.request
 import json
 from datetime import datetime
 import logging
+from base64 import b64encode
 from .exceptions import *
 
 def validate_identity_url(url):
@@ -20,3 +21,20 @@ def fetch_identity(url):
         data=response.read()
     return json.loads(data)
 
+def request_to_payload(request, extra_processor=None):
+    fields = [ 
+                request.method, 
+                base64.b64encode(request.url),
+             ]
+
+    if extra_processor:
+        extra_part = extra_processor(request)
+
+        if extra_part:
+            if not isinstance(extra_part,bytes):
+                extra_part=extra_part.encode()
+
+    if extra_part:
+        fields += [ extra_part ]
+
+    return b":".join(extra_part)
