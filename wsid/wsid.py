@@ -49,7 +49,7 @@ class WSID:
         signed = self.signing_key.sign(payload)
         sigstring = hexenc.encode( signed.signature ).decode()
         
-        return payload+"."+sigstring
+        return payload+b"."+sigstring
 
 
 
