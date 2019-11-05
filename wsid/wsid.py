@@ -47,7 +47,7 @@ class WSID:
         self.logger.debug("PAYLOAD: %s" % payload)
             
         signed = self.signing_key.sign(payload)
-        sigstring = hexenc.encode( signed.signature ).decode()
+        sigstring = hexenc.encode( signed.signature )
         
         return payload+b"."+sigstring
 
@@ -57,8 +57,8 @@ def validate(msg):
   
     payload, claimsdata, signature = msg.split(b'.')
     
-    b64=nacl.encoding.Base64Encoder
-    claims = json.loads(b64.decode(claimsdata))
+    b64     =   nacl.encoding.Base64Encoder
+    claims  =   json.loads(b64.decode(claimsdata))
 
     validate_timestamps(claims['iat'],claims['exp'])
 
@@ -69,7 +69,7 @@ def validate(msg):
     
     verifier = nacl.signing.VerifyKey(signer_key_body, nacl.encoding.HexEncoder)
     
-    signed_payload=payload+b"."+claims
+    signed_payload  =   payload+b"."+claims
 
     if verifier.verify(signed_payload, signature):
         return (identity, payload, claims)
