@@ -47,14 +47,17 @@ class WSID:
         self.logger.debug("PAYLOAD: %s" % payload)
             
         signed = self.signing_key.sign(payload)
+        self.logger.debug("SIGNATURE: %s" % signed.signature)
         sigstring = hexenc.encode( signed.signature )
         
         return payload+b"."+sigstring
 
 
 
-def validate(msg):
+def validate(msg, logger=None):
   
+    logger=logger or logging.getLogger('wsid.validate')
+        
     payload, claimsdata, signature = msg.split(b'.')
     
     b64     =   nacl.encoding.Base64Encoder
@@ -71,6 +74,7 @@ def validate(msg):
    
     # it's important to take claimsdata, not reserialized claims, as result may formally differ 
     signed_payload  =   payload+b"."+claimsdata
-
+    
+    logger.debug("CHECKING PAYLOAD %s against signature %s" % (signed_payload, signature))
     if verifier.verify(signed_payload, signature):
         return (identity, payload, claims)
