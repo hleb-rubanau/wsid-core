@@ -68,8 +68,9 @@ def validate(msg):
     signer_key_body = fetch_identity( identity )['sig']
     
     verifier = nacl.signing.VerifyKey(signer_key_body, nacl.encoding.HexEncoder)
-    
-    signed_payload  =   payload+b"."+claims
+   
+    # it's important to take claimsdata, not reserialized claims, as result may formally differ 
+    signed_payload  =   payload+b"."+claimsdata
 
     if verifier.verify(signed_payload, signature):
         return (identity, payload, claims)
