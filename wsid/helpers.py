@@ -2,12 +2,8 @@ from cachetools import cached, LRUCache, TTLCache
 import urllib.request
 import json
 from datetime import datetime
-
-class InsecureIdentityURL(Exception):
-    pass
-
-class InvalidTimestamps(Exception): 
-    pass
+import logging
+from .exceptions import *
 
 def validate_identity_url(url):
     if not(url.startswith('https://') or url.startswith('http://127.0.0')):
