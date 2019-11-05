@@ -38,16 +38,16 @@ def validate(msg, logger=None):
         raise InvalidSignature
 
 
-def validate_request(request, logger=None, extra_processor=None):
-    """ extra_processor is an optional custom function which can calculate custom 'fingerprint' of the request to be incuded into signature """
+def validate_request(request, logger=None, payload_extractor=None):
     logger=logger or logging.getLogger('wsid.validate_request') 
-    
+    payload_extractor = payload_extractor or request_to_payload
+
     signature=request.headers['Authorization']
     if signature.startswith("WSID "):
         signature=signature[len("WSID "):]
 
     sigparts = signature.split(b'.')
-    payload = request_to_payload( request, extra_processor )
+    payload = payload_extractor( request )
    
     full_payload =  payload + b'.' + signature
     return validate(full_payload, logger)

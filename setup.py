@@ -17,6 +17,7 @@ setuptools.setup(
      install_requires=[
         'PyNaCl', 
         'cachetools',
+        'requests',
      ],
      license="MIT",
      classifiers=[

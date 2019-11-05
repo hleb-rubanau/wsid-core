@@ -1,11 +1,15 @@
 class WSIDError(Exception):
     pass
 
-class InsecureIdentityURL(WSIDError):
+class WSIDValidationError(WSIDError):
     pass
 
-class InvalidTimestamps(WSIDError):
+class InsecureIdentityURL(WSIDValidationError):
     pass
 
-class InvalidSignature(WSIDError):
+class InvalidTimestamps(WSIDValidationError):
     pass
+
+class InvalidSignature(WSIDValidationError):
+    pass
+

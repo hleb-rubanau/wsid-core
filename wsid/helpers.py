@@ -21,20 +21,15 @@ def fetch_identity(url):
         data=response.read()
     return json.loads(data)
 
-def request_to_payload(request, extra_processor=None):
+
+def assert_bytes(msg):
+    if not isinstance(msg,bytes):
+        raise TypeError("Byte-like object needed")            
+    
+def default_request_to_payload_extractor(request):
     fields = [ 
-                request.method, 
+                request.method.encode(), 
                 base64.b64encode(request.url),
              ]
 
-    if extra_processor:
-        extra_part = extra_processor(request)
-
-        if extra_part:
-            if not isinstance(extra_part,bytes):
-                extra_part=extra_part.encode()
-
-    if extra_part:
-        fields += [ extra_part ]
-
-    return b":".join(extra_part)
+    return b":".join(fields)
