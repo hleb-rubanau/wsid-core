@@ -64,7 +64,7 @@ def validate(msg, logger=None):
     payload, claimsdata, signaturehex = msg.split(b'.')
     
     b64     =   nacl.encoding.Base64Encoder
-    hexenc  =   nacl.encoding.Base64Encoder
+    hexenc  =   nacl.encoding.HexEncoder
     claims  =   json.loads(b64.decode(claimsdata))
 
     validate_timestamps(claims['iat'],claims['exp'])
