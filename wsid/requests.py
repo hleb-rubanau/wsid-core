@@ -5,13 +5,13 @@ from .client import WSIDClient
 
 class SignedRequests:
     def __init__(self, url):
-        self.wcidclient=WSIDClient(url)
+        self.wsidclient=WSIDClient(url)
 
     def process(self, method, url, *args, **kwargs):
         plain_kwargs=dict(**kwargs)
         payload_extractor = plain_kwargs.pop('payload_extractor', None)
         r=Request(method, url, *args, **plain_kwargs)
-        signature = self.wcidclient.sign_request(r, payload_extractor)
+        signature = self.wsidclient.sign_request(r, payload_extractor)
                 
         if not plain_kwargs.get('headers'):
             plain_kwargs['headers']={}

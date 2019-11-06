@@ -36,7 +36,7 @@ def assert_bytes(msg):
 def default_request_to_payload_extractor(request):
     fields = [ 
                 request.method.encode(), 
-                nacl.encoding.Base64Encoder.encode(request.url),
+                nacl.encoding.Base64Encoder.encode(request.url.encode()),
              ]
 
     return b":".join(fields)
