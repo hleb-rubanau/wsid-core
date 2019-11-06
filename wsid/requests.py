@@ -1,11 +1,11 @@
 import requests
 from requests import Request
 from requests.api import request
-from .client import WCIDClient
+from .client import WSIDClient
 
 class SignedRequests:
     def __init__(self, url):
-        self.wcidclient=WCIDClient(url)
+        self.wcidclient=WSIDClient(url)
 
     def process(self, method, url, *args, **kwargs):
         plain_kwargs=dict(**kwargs)
