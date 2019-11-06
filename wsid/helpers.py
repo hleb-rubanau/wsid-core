@@ -3,7 +3,6 @@ import urllib.request
 import json
 from datetime import datetime
 import logging
-from base64 import b64encode
 from .exceptions import *
 
 import nacl.signing
@@ -37,7 +36,7 @@ def assert_bytes(msg):
 def default_request_to_payload_extractor(request):
     fields = [ 
                 request.method.encode(), 
-                base64.b64encode(request.url),
+                nacl.encoding.Base64Encoder.encode(request.url),
              ]
 
     return b":".join(fields)
