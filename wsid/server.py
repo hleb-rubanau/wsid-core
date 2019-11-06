@@ -20,7 +20,7 @@ def get_public_keys():
 
 def do_sign():
     payload = request.get_data()
-    if not payload.replace('=','').alnum():
+    if not payload.replace(b'=',b'').isalnum():
         payload = b64encode(payload)
     return wsid.sign( payload ) 
 
