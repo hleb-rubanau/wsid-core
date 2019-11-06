@@ -1,4 +1,6 @@
 import json
+import logging
+
 import nacl.encoding
 from .exceptions import *
 from .helpers import validate_timestamps, fetch_identity, validate_identity_url, default_request_to_payload_extractor
