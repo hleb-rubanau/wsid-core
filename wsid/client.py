@@ -17,6 +17,8 @@ class WSIDClient():
 
         payload=payload_extractor(request)
 
-        _, claims, signature = self.sign(payload)
+        _, claims, signature = self.sign(payload).split(b".")
         
+        # for signed requests we omit 'payload', 
+        # which should be instead recalculated on receiving side 
         return b"WSID "+claims+b"."+signature
