@@ -42,7 +42,7 @@ def validate(msg, logger=None):
 
 def validate_request(request, logger=None, payload_extractor=None):
     logger=logger or logging.getLogger('wsid.validate_request') 
-    payload_extractor = payload_extractor or request_to_payload
+    payload_extractor = payload_extractor or default_request_to_payload_extractor
 
     signature=request.headers['Authorization']
     if signature.startswith("WSID "):
