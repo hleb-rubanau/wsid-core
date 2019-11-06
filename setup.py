@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
      name='wsid',  
-     version='0.0.3',
+     version='0.0.6',
      scripts=[] ,
      author="Hleb Rubanau",
      author_email="contact@rubanau.com",
@@ -17,6 +17,8 @@ setuptools.setup(
      install_requires=[
         'PyNaCl', 
         'cachetools',
+        'flask',
+        'requests'
      ],
      license="MIT",
      classifiers=[

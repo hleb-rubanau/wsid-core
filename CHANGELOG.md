@@ -1,3 +1,7 @@
+# 0.0.6
+
+* Signed requests library
+
 # 0.0.5
 
 * Helper method new key
