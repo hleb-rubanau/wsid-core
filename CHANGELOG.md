@@ -1,3 +1,7 @@
+# 0.0.22
+
+* added policy
+
 # 0.0.21
 
 * bugfixes
