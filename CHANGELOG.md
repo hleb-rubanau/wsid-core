@@ -1,3 +1,7 @@
+# 0.0.4
+
+* Flask server added
+
 # 0.0.3
 * support for WSIDClient with both plain and requests signing and validation
 

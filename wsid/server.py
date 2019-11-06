@@ -9,12 +9,6 @@ from wsid import WSID
 LOG_LEVEL = getattr(logging, os.getenv("LOG_LEVEL", "INFO").upper())
 app = Flask(__name__)
 app.logger.setLevel(LOG_LEVEL)
-#app.logger.addHandler(logging.StreamHandler())
-
-def is_like_b64(msg):
-    return msg.replace('=','').isalnum()
-
-
 wsid=WSID(  os.getenv("WSID_PRIVATE_KEY"), 
             os.getenv("WSID_IDENTITY"), 
             logger=app.logger
