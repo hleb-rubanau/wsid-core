@@ -1,3 +1,7 @@
+# 0.0.5
+
+* Helper method new key
+
 # 0.0.4
 
 * Flask server added

@@ -6,6 +6,14 @@ import logging
 from base64 import b64encode
 from .exceptions import *
 
+import nacl.signing
+import nacl.encoding
+
+def new_private_key():
+    return nacl.signing.SigningKey.generate().encode( 
+                                               encoder=nacl.encoding.HexEncoder
+                                             ).decode()
+
 def validate_identity_url(url):
     if not(url.startswith('https://') or url.startswith('http://127.0.0')):
         raise InsecureIdentityURL(url)
