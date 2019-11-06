@@ -1,7 +1,7 @@
 import json
 import nacl.encoding
 from .exceptions import *
-from .helpers import validate_timestamps, fetch_identity, validate_identity_url, request_to_payload
+from .helpers import validate_timestamps, fetch_identity, validate_identity_url, default_request_to_payload_extractor
 
 def validate(msg, logger=None):
   
