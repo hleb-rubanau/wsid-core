@@ -13,3 +13,5 @@ class InvalidTimestamps(WSIDValidationError):
 class InvalidSignature(WSIDValidationError):
     pass
 
+class NoWSIDAuthHeader(WSIDValidationError):
+    pass

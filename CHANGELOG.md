@@ -1,3 +1,9 @@
+# 0.0.20
+
+* Do not do implicit base64-encoding in server.py#sign
+* Rollback some previous changes as they are not needed
+* When validating request, recognize lack of header and raise appropriate exception
+
 # 0.0.19
 
 * decode authorization header in signed requests

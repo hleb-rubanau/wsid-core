@@ -44,11 +44,17 @@ def validate_request(request, logger=None, payload_extractor=None):
     logger=logger or logging.getLogger('wsid.validate_request') 
     payload_extractor = payload_extractor or default_request_to_payload_extractor
 
-    signature=request.headers['Authorization']
-    if signature.startswith("WSID "):
-        signature=signature[len("WSID "):]
+    signature=request.headers.get('Authorization')
 
-    payload = payload_extractor( request )
+    if not(signature and signature.startswith("WSID "):
+        raise NoWSIDAuthHeader
+
+    signature=signature[len("WSID "):].strip()
+
+    if not signature:
+        raise NoWSIDAuthHeader 
+
+    payload = payload_extractor( request ) 
    
     full_payload =  payload + b'.' + signature.encode()
     return validate(full_payload, logger)

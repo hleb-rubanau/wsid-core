@@ -20,8 +20,8 @@ def get_public_keys():
 
 def do_sign():
     payload = request.get_data()
-    if not payload.replace(b'=',b'').isalnum():
-        payload = b64encode(payload)
+    #if not payload.replace(b'=',b'').isalnum():
+    #    payload = b64encode(payload)
     return wsid.sign( payload ) 
 
 app.add_url_rule('/', 'index', get_public_keys )
