@@ -20,7 +20,7 @@ class SignedRequests:
         if not plain_kwargs.get('headers'):
             plain_kwargs['headers']={}
 
-        plain_kwargs['headers']['Authorization']=signature
+        plain_kwargs['headers']['Authorization']=signature.decode()
         
         logger.debug("Signed request kwargs are=%s" % plain_kwargs)
         return request(method, url, **plain_kwargs)

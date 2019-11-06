@@ -1,3 +1,7 @@
+# 0.0.19
+
+* decode authorization header in signed requests
+
 # 0.0.18
 
 * more debugging
