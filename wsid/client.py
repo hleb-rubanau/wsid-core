@@ -19,4 +19,4 @@ class WSIDClient():
 
         _, claims, signature = self.sign(payload)
         
-        return b"WSID "+claims+b"."signature
+        return b"WSID "+claims+b"."+signature

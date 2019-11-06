@@ -1,3 +1,7 @@
+# 0.0.7
+
+* bugfix
+
 # 0.0.6
 
 * Signed requests library
