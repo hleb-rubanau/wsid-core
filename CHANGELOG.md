@@ -1,3 +1,7 @@
+# 0.0.18
+
+* more debugging
+
 # 0.0.17
 
 * bugfix
