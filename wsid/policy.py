@@ -4,7 +4,7 @@ import logging
 class SimplePolicy:
 
     def __init__(self, policy, logger=None):
-        self.policy = policydoc
+        self.policy = policy
         self.logger = logger or logging.getLogger('wsid.policy.simple')
 
        
