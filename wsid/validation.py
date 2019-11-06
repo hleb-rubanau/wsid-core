@@ -46,7 +46,7 @@ def validate_request(request, logger=None, payload_extractor=None):
 
     signature=request.headers.get('Authorization')
 
-    if not(signature and signature.startswith("WSID "):
+    if not(signature and signature.startswith("WSID ")):
         raise NoWSIDAuthHeader
 
     signature=signature[len("WSID "):].strip()

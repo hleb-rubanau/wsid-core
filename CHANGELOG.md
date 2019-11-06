@@ -1,3 +1,7 @@
+# 0.0.21
+
+* bugfixes
+
 # 0.0.20
 
 * Do not do implicit base64-encoding in server.py#sign
