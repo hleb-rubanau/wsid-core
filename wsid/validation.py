@@ -48,10 +48,9 @@ def validate_request(request, logger=None, payload_extractor=None):
     if signature.startswith("WSID "):
         signature=signature[len("WSID "):]
 
-    sigparts = signature.split(b'.')
     payload = payload_extractor( request )
    
-    full_payload =  payload + b'.' + signature
+    full_payload =  payload + b'.' + signature.encode()
     return validate(full_payload, logger)
     
     
